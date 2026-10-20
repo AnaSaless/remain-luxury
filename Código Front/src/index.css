@@ -1,0 +1,304 @@
+@import "tailwindcss";
+/* Fontes carregadas via index.html */
+
+/* ══════════════════════════════════════════════
+   VARIÁVEIS DE TEMA
+   ══════════════════════════════════════════════ */
+:root,
+[data-theme="dark"] {
+  --bg:        #000000;
+  --surface:   #0d0d0d;
+  --surface-2: #141414;
+  --gold:      #ac872a;
+  --gold-hover:#c9a94e;
+  --text:      #f2f2f2;
+  --text-80:   rgba(242,242,242,0.80);
+  --text-60:   rgba(242,242,242,0.60);
+  --muted:     #737373;
+  --border:    #1f1f1f;
+  --border-gold:#7b611e;
+  --on-gold:   #000000;
+  --shadow:    0 8px 32px rgba(0,0,0,0.6);
+}
+
+[data-theme="light"] {
+  --bg:        #faf9f6;
+  --surface:   #f0ede8;
+  --surface-2: #e8e4de;
+  --gold:      #8a6a1e;
+  --gold-hover:#a07c24;
+  --text:      #0a0a0a;
+  --text-80:   rgba(10,10,10,0.80);
+  --text-60:   rgba(10,10,10,0.60);
+  --muted:     #5c5c5c;
+  --border:    #d4cfc8;
+  --border-gold:#c9a94e;
+  --on-gold:   #ffffff;
+  --shadow:    0 8px 32px rgba(0,0,0,0.12);
+}
+
+/* ══════════════════════════════════════════════
+   BASE
+   ══════════════════════════════════════════════ */
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+    /* Transição suave entre temas */
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: var(--bg);
+    transition: background-color 0.2s ease;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+  }
+
+  * { box-sizing: border-box; }
+
+  ::selection {
+    background-color: var(--gold);
+    color: var(--on-gold);
+  }
+
+  /* Focus visível por teclado */
+  :focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* Cursor pointer em tudo clicável */
+  button, [role="button"], a, select, label[for], input[type="checkbox"], input[type="radio"] {
+    cursor: pointer;
+  }
+
+  /* Transição padrão em elementos interativos */
+  button, a, input, select, textarea {
+    transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  }
+}
+
+/* ══════════════════════════════════════════════
+   UTILITÁRIOS DE TEMA (usados nos componentes)
+   ══════════════════════════════════════════════ */
+@layer utilities {
+  .bg-theme        { background-color: var(--bg); }
+  .bg-surface      { background-color: var(--surface); }
+  .bg-surface-2    { background-color: var(--surface-2); }
+  .bg-gold         { background-color: var(--gold); }
+  .text-theme      { color: var(--text); }
+  .text-theme-80   { color: var(--text-80); }
+  .text-theme-60   { color: var(--text-60); }
+  .text-gold       { color: var(--gold); }
+  .text-muted      { color: var(--muted); }
+  .text-on-gold    { color: var(--on-gold); }
+  .border-theme    { border-color: var(--border); }
+  .border-gold     { border-color: var(--gold); }
+  .shadow-theme    { box-shadow: var(--shadow); }
+
+  /* Hover do botão gold */
+  .btn-gold {
+    background-color: var(--gold);
+    color: var(--on-gold);
+    border-radius: 6px;
+  }
+  .btn-gold:hover {
+    background-color: var(--gold-hover);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
+  }
+  .btn-gold:active { transform: translateY(0); }
+
+  /* Hover outline */
+  .btn-outline {
+    border: 1px solid var(--border);
+    color: var(--muted);
+    border-radius: 6px;
+  }
+  .btn-outline:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+}
+
+/* ══════════════════════════════════════════════
+   HERO REVEAL
+   ══════════════════════════════════════════════ */
+@keyframes heroReveal {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-word {
+  display: inline-block;
+  opacity: 0;
+}
+.hero-word.revealed {
+  animation: heroReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ══════════════════════════════════════════════
+   ANIMAÇÕES DE SCROLL (fade-up)
+   ══════════════════════════════════════════════ */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.fade-up {
+  opacity: 0;
+}
+.fade-up.in-view {
+  animation: fadeInUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.fade-in {
+  opacity: 0;
+}
+.fade-in.in-view {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+/* Menu perfil slide+fade */
+.menu-dropdown {
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.menu-dropdown.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Accordion max-height */
+.accordion-body {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.accordion-body.open {
+  max-height: 2000px;
+}
+
+/* Check icon pop ao adicionar à bolsa */
+@keyframes checkPop {
+  0%   { transform: scale(0.6); opacity: 0; }
+  60%  { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1.0); opacity: 1; }
+}
+.check-pop {
+  display: inline-block;
+  animation: checkPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Blur-up image reveal */
+.img-blur {
+  filter: blur(8px);
+  opacity: 0.7;
+  transition: filter 400ms ease, opacity 300ms ease;
+}
+.img-blur.loaded {
+  filter: blur(0);
+  opacity: 1;
+}
+
+/* Stagger card entrada */
+.card-enter {
+  opacity: 0;
+  animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Skeleton shimmer */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--surface) 25%,
+    var(--surface-2) 50%,
+    var(--surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+/* Delays para stagger */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+
+/* ══════════════════════════════════════════════
+   MICRO-INTERAÇÕES GLOBAIS
+   ══════════════════════════════════════════════ */
+
+/* Cards com elevação ao hover */
+.card-hover {
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px color-mix(in srgb, var(--gold) 10%, transparent);
+}
+
+/* Scale sutil em elementos clicáveis */
+.scale-hover:hover { transform: scale(1.02); }
+.scale-hover:active { transform: scale(0.98); }
+
+/* Respeitar preferência de movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+  .hero-word, .card-enter, .fade-up, .fade-in, .shimmer, .img-blur, .check-pop, .card-hover {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}
+
+/* Input focus line animation */
+.input-line {
+  border-bottom: 1px solid var(--border);
+  transition: border-color 0.2s ease;
+}
+.input-line:focus { border-color: var(--gold); }
+
+/* Linha dourada crescendo — wrapper com ::after */
+.input-gold-line {
+  position: relative;
+}
+.input-gold-line::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--gold);
+  transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.input-gold-line:focus-within::after {
+  width: 100%;
+}

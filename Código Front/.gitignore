@@ -1,0 +1,22 @@
+# Dependências
+node_modules/
+
+# Build
+/dist
+/build
+
+# Variáveis de ambiente (nunca versionar!)
+.env*
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Editor
+.vscode/
+.idea/
